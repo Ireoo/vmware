@@ -1,0 +1,26 @@
+# Git相关
+.git
+.gitignore
+
+# Docker相关
+docker-compose.yaml
+.dockerignore
+
+# SSH密钥
+ssh_keys/
+
+# 数据目录
+workspace/
+home/
+
+# 脚本和文档
+setup.sh
+README.md
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.log 

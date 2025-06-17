@@ -22,12 +22,12 @@ else
 fi
 
 echo ""
-echo "=== 启动容器 ==="
-docker-compose up -d
+echo "=== 构建并启动容器 ==="
+docker-compose up --build -d
 
 echo ""
 echo "等待容器启动..."
-sleep 8
+sleep 10
 
 echo ""
 echo "=== 配置SSH密钥认证 ==="

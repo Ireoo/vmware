@@ -2,23 +2,16 @@ version: '3.8'
 
 services:
   ubuntu-ssh:
-    image: ubuntu:22.04
+    build: .
     container_name: ubuntu-ssh-container
     ports:
       - "2025:22"
     environment:
       - ROOT_PASSWORD=123456
-    command: |
-      bash -c "
-        apt-get update &&
-        apt-get install -y openssh-server &&
-        echo 'root:$$ROOT_PASSWORD' | chpasswd &&
-        sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config &&
-        sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config &&
-        sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config &&
-        service ssh start &&
-        tail -f /dev/null
-      "
+    volumes:
+      - ./workspace:/workspace
+      - ./home:/root
+    working_dir: /workspace
     restart: unless-stopped
     stdin_open: true
     tty: true 
