@@ -23,7 +23,7 @@ fi
 
 echo ""
 echo "=== 构建并启动容器 ==="
-docker-compose up --build -d
+docker compose up -d
 
 echo ""
 echo "等待容器启动..."
@@ -35,7 +35,7 @@ echo "临时密码: 123456"
 echo "正在复制SSH公钥到容器..."
 
 # 使用ssh-copy-id复制公钥
-SSHPASS=123456 sshpass -e ssh-copy-id -i "$SSH_KEY_PATH" -p 2025 -o StrictHostKeyChecking=no root@localhost
+ssh-copy-id -i "$SSH_KEY_PATH" -p 2025 -o StrictHostKeyChecking=no root@localhost
 
 if [ $? -eq 0 ]; then
     echo "✓ SSH公钥复制成功"
@@ -63,6 +63,7 @@ if [ $? -eq 0 ]; then
     echo "    IdentityFile $SSH_KEY_PATH"
     echo ""
     echo "然后可以直接使用: ssh ubuntu-docker"
+    ssh -i $SSH_KEY_PATH root@localhost -p 2025
 else
     echo "❌ SSH公钥复制失败，请检查容器是否正常启动"
     echo "可以手动尝试: ssh root@localhost -p 2025 (密码: 123456)"
