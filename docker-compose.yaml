@@ -3,14 +3,15 @@ version: '3.8'
 services:
   ubuntu-ssh:
     build: .
-    container_name: ubuntu-ssh-container
+    container_name: ubuntu
     ports:
       - "2025:22"
     environment:
       - ROOT_PASSWORD=123456
     volumes:
       - ./workspace:/workspace
-      - ./home:/root
+      - ./home:/home
+      - ./root:/root
     working_dir: /workspace
     restart: unless-stopped
     stdin_open: true
